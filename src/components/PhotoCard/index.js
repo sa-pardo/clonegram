@@ -1,28 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { ImgWrapper, Img, Button, Article } from './styles'
-import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
+import React from 'react'
+import { ImgWrapper, Img, Article } from './styles'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useNearScreen } from '../../hooks/useNearScreen'
+import { FavButton } from '../FavButton'
+import { useMutationToggleLike } from '../../container/ToggleLikeMutation'
 
 export const PhotoCard = ({ id, likes = 0, src }) => {
-  const [liked, setLiked] = useLocalStorage(`like-${id}`, false)
+  const key = `like-${id}`
+  const [liked, setLiked] = useLocalStorage(key, false)
   const [show, ref] = useNearScreen()
+  const { mutation, mutationLoading, mutationError } = useMutationToggleLike()
 
-  const Icon = liked ? MdFavorite : MdFavoriteBorder
+  const handleFavClick = () => {
+    !liked && mutation({
+      variables: {
+        input: { id }
+      }
+    })
+    setLiked(!liked)
+  }
+  // console.log('{ mutation, mutationLoading, mutationError }', { mutation, mutationLoading, mutationError })
 
   return (
     <Article ref={ref}>
       {show &&
         <>
-          <a href={`/detail/${id}`}>
+          <a href={`/?detail=${id}`}>
             <ImgWrapper>
               <Img src={src} />
             </ImgWrapper>
           </a>
+          <FavButton liked={liked} likes={likes} onClick={handleFavClick} />
 
-          <Button onClick={() => setLiked(!liked)}>
-            <Icon size='32px' /> {likes} likes!
-          </Button>
         </>}
     </Article>
   )
