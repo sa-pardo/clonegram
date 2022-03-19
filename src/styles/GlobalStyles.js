@@ -10,6 +10,11 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
 
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+
   ul, li, h1, h2, h3, p, button {
     margin: 0;
   }
