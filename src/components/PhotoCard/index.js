@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { ImgWrapper, Img, Article } from './styles'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useNearScreen } from '../../hooks/useNearScreen'
@@ -19,17 +20,16 @@ export const PhotoCard = ({ id, likes = 0, src }) => {
     })
     setLiked(!liked)
   }
-  // console.log('{ mutation, mutationLoading, mutationError }', { mutation, mutationLoading, mutationError })
 
   return (
     <Article ref={ref}>
       {show &&
         <>
-          <a href={`/?detail=${id}`}>
+          <Link to={`/detail/${id}`}>
             <ImgWrapper>
               <Img src={src} />
             </ImgWrapper>
-          </a>
+          </Link>
           <FavButton liked={liked} likes={likes} onClick={handleFavClick} />
 
         </>}

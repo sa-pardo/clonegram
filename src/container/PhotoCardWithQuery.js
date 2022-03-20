@@ -17,7 +17,6 @@ const GET_SIGNLE_PHOTO = gql`
 `
 
 export const PhotoCardWithQuery = ({ id }) => {
-  console.log(id)
   const { loading, error, data } = useQuery(GET_SIGNLE_PHOTO, { variables: { id } })
 
   if (error) {
