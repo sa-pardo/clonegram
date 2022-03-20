@@ -10,6 +10,24 @@
 
 <body>
   <div id="root"></div>
+  <noscript>
+    <h3>
+      Este sitio requiere JavaScript para funcionar correctamente.
+    </h3>
+  </noscript>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')// AQUI!!
+          .then(registration => {
+            console.log('SW registrado')
+          })
+          .catch(registrationError => {
+            console.log('SW error ' + registrationError);
+          })
+      })
+    }
+  </script>
 </body>
 
 </html>

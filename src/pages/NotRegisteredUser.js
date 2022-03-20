@@ -3,6 +3,7 @@ import { UserForm } from '../components/UserForm'
 import Context from '../Context'
 import { useRegisterMutation } from '../container/RegisterMutation'
 import { useLoginMutation } from '../container/LoginMutation'
+import { useNavigate } from 'react-router-dom'
 
 export const NotRegisteredUser = () => {
   const { activateAuth } = useContext(Context.Context)
